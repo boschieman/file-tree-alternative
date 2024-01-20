@@ -1,6 +1,7 @@
 import { TFile, TFolder, App, Keymap, Platform } from 'obsidian';
 import FileTreeAlternativePlugin from 'main';
 import { FolderFileCountMap, FolderTree, OZFile } from 'utils/types';
+import { createNewMarkdownFile } from 'utils/newFile';
 import { VaultChangeModal } from 'modals';
 
 // Helper Function To Get List of Files
@@ -148,6 +149,13 @@ export const platformIsMobile = () => {
 export const createNewFile = async (e: React.MouseEvent | null, folderPath: string, plugin: FileTreeAlternativePlugin) => {
     let targetFolder = plugin.app.vault.getAbstractFileByPath(folderPath);
     if (!targetFolder) return;
-    let modal = new VaultChangeModal(plugin, targetFolder, 'create note');
-    modal.open();
+    // let modal = new VaultChangeModal(plugin, targetFolder, 'create note');
+    // modal.open();
+
+    await createNewMarkdownFile(
+        plugin,
+        targetFolder as TFolder,
+        "NewNote",
+        ''
+    );
 };
